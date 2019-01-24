@@ -5,6 +5,7 @@ public class HitungLuas {
 
   public HitungLuas(){
     cariLuasPersegiPanjang();
+    cariLuasLingkaran();
   }
 
   public void cariLuasPersegiPanjang(){
@@ -17,6 +18,16 @@ public class HitungLuas {
     int luasPersegiPanjang = panjang * lebar;
     System.out.println("Berikut luas Persegi Panjang dengan panjang = " + panjang + " dan lebar = " + lebar + ":");
     System.out.println(luasPersegiPanjang);
+  }
+
+  public void cariLuasLingkaran(){
+    System.out.println("Kita akan menghitung luas lingkaran!");
+    System.out.println("Masukan nilai dari Jari-jari:");
+    int jari = s.nextInt();
+
+    int luasLingkaran = (Math.pow(jari, 2)) * 22 / 7;
+    System.out.println("Berikut luas Lingkaran dengan  Jari-jari = " + jari + ":");
+    System.out.println(luasLingkaran);
   }
 
   public static void main(String[] args) {
