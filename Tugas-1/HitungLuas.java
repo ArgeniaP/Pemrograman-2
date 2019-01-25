@@ -25,7 +25,7 @@ public class HitungLuas {
     System.out.println("Masukan nilai dari Jari-jari:");
     int jari = s.nextInt();
 
-    int luasLingkaran = (Math.pow(jari, 2)) * 22 / 7;
+    double luasLingkaran = (double)Math.pow(jari, 2) * 3.14;
     System.out.println("Berikut luas Lingkaran dengan  Jari-jari = " + jari + ":");
     System.out.println(luasLingkaran);
   }
