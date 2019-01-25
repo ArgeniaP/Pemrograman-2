@@ -1,0 +1,30 @@
+Nama	: Ilham Taufik Hidayat
+NPM	: 1842807
+S1 – Teknik Informatika
+
+JAWABAN PRESTEST EDMODO
+
+1.	Version Control System (VCS) adalah sebuah infrastruktur untuk membantun mengembangkan sebuah Software secara kolaboratif.
+2.	Git merupakan salah satu VCS yang saat ini sedang buming dikalangan programer, penggunaan Git cukup sederhana dan mudah, pada awalnya Git digunakan dalam pengembangan kernel Linux dan dibuat oleh Linus Torvalds.
+3.	Git sangat mudah digunakan dan mudah dipahami bagi pemula, pemasangannya pun sangat mudah dan tersedia diberbagai platform mulai dari Linux hingga iOS.
+4.	Java merupakan salah satu bahasa pemrograman yang berorientasikan pada objek atau biasa disebut dengan OOP (Oriented Object Program).
+5.	Class, Method, Inheritance, Encapsulation, Polymorphism, Abstract Class dan Interface dalam Pemrograman Jawa:
+  a.	Class merupakan cetak biru atau rancangan dari Objek, dalam Class terdapat dua bagian yaitu, atribut dan method. Class pada Jawa ditandai dengan deklarasi public class namaClass{}
+  b.	Method adalah serangkaian perintah yang akan dilakukan objek saat program berjalan. Dalam Jawa agar program dapat berjalan diperlukan satu buah Method Main yang dideklarasikan public static  void main(String[] args){}
+  c.	Inheritance adalah suatu cara class satu dengan class yang lain, dengan penggunaan Inheritance sendiri kita dapat memperpendek penulisan karena mencegah pengulangan. Konsep inheritance sendiri seperti namanya, yaitu penurunan, di mana salah satu class berperan sebagai class induk dan class yang lain sebagai class turunan dari class induk.
+  d.	Encapsulation adalah proses pemaketan data bersama dengan metode yang bertujuan untuk menyembunyikan rincian-rincian dari pengguna program.
+  e.	Polymorphism adalah sebuah istilah saat kita menjalankan satu buah method dalam class dengan beberapa cara yang berbeda. Hal ini dapat dilakukan dengan cara meng-overriding method tersebut.
+  f.	Abstract Class adalah class yang dideklarasikan dengan menambahkan abstract saat  deklarasinya sehingga akan terlihat  seperti public abstract class namaClass{}
+  g.	Interface merupakan salah satu bentuk tipe referensi pada java. Secara struktur Interface sangat mirip dengan class.
+6.	Object Oriented Programming (OOP) merupakan konsep dalam mengembangkan sebuah program yang beroritentasikan pada objek. Tujuannya sendiri adalah untuk mempermudah pengembangan dengan cara mengikuti model yang telah ada dalam kehidupan sehari-hari. Jadi setiap permasalahan adalah objek, yang merupakan gabungan dari objek-objek yang lebih kecil.
+7.	Selain Java Swing, ada pula JavaFX dan JavaSWT.
+8.	Cara membuat aplikasi Hello World:
+  a.	Buka aplikasi pengolah huruf, bisa notepad maupun notepad++ atau yang lainnya;
+  b.	Buat file baru, lalu deklarasikan class Hello world;
+  c.	Lalu buat method main di dalam nest class Hello World;
+  d.	Ketika System.out.println(“Hello World!”) kedalam method main;
+  e.	Simpan dengan nama HelloWorld dengan ekstensi .java;
+  f.	Untuk mencobanya, buka direktori HelloWorld.java berada;
+  g.	Klik kanan sembari menekan tombol Shift (untuk Windows);
+  h.	Pilih Command Prompt atau Powershell dan masukan perintah javac HelloWorld.java, hal ini untuk mengcompile file java tersebut;
+  i.	Kemudian masukan perintah java HelloWorld untuk menjalankannya.
