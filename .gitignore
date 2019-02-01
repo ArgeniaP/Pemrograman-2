@@ -1,3 +1,5 @@
 *.doc
 *.docx
 *.class
+/Latihan1_Mobil/nbproject/private/
+/Tugas1-OOP/nbproject/private/
