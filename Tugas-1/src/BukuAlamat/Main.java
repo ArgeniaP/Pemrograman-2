@@ -13,9 +13,9 @@ import java.util.Scanner;
  * @author user
  */
 public class Main {
-    Buku d = new Buku();
-    Scanner s = new Scanner(System.in);
-    String[][] data = new String[100][4];
+    static Buku d = new Buku();
+    static Scanner s = new Scanner(System.in);
+    static String[][] data = new String[100][4];
     
     private void input(String nama, String alamat, String telepon, String email){
         d.setNama(nama);
@@ -49,6 +49,10 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        
+        System.out.println("Selamat Datang!");
+        System.out.println("Silahkan pilih salah satu opsi berikut:");
+        System.out.println("1 => Insert Data\t3 => Update Data");
+        System.out.println("2 => Delete Data\t4 => Show Data");
+        int opsi = s.nextInt();
     }
 }
