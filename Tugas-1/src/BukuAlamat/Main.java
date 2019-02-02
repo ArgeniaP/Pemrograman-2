@@ -49,10 +49,29 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        System.out.println("Selamat Datang!");
-        System.out.println("Silahkan pilih salah satu opsi berikut:");
-        System.out.println("1 => Insert Data\t3 => Update Data");
-        System.out.println("2 => Delete Data\t4 => Show Data");
-        int opsi = s.nextInt();
+        do{
+            System.out.println("Selamat Datang!");
+            System.out.println("Silahkan pilih salah satu opsi berikut:");
+            System.out.println("1 => Insert Data\t3 => Update Data");
+            System.out.println("2 => Delete Data\t4 => Show Data");
+            System.out.println("Untuk menghentikan program masukan 0.");
+            int opsi = s.nextInt();
+        
+            switch(opsi){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opsi tidak sesuai!");
+            }
+        } while(true);
     }
 }
