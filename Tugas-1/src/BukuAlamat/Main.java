@@ -82,6 +82,20 @@ public class Main {
                     System.out.println("Selesai...");
                     break;
                 case 2:
+                    System.out.println("Silahkan masukan no. urut data yang akan dirubah");
+                    int j = s.nextInt();
+                    System.out.println("Data diambil...");
+                    
+                    System.out.println("Masukan data mana yang akan dirubah:");
+                    System.out.println("1. Nama\t2. Alamat\t3. No. Telepon\t4. Email");
+                    int k = s.nextInt();
+                    System.out.println("Data diambil...");
+                    
+                    System.out.println("Masukan data yang baru:");
+                    String update = s.next();
+                    System.out.println("Memproses....");
+                    update(j, k, update);
+                    System.out.println("Selesai...");
                     break;
                 case 3:
                     break;
