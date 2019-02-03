@@ -24,6 +24,7 @@ public class Main {
         d.setEmail(email);
     }
     
+    @SuppressWarnings("UnnecessaryContinue")
     private static void insert(){
         if(data[0][0] == null){
             data[0][0] = d.getNama();
@@ -50,10 +51,16 @@ public class Main {
     }
     
     private static void delete(int ind1){
-        data[ind1-1][0] = null;
-        data[ind1-1][1] = null;
-        data[ind1-1][2] = null;
-        data[ind1-1][3] = null;
+        for(int i = (ind1-1); i < 99; i++){
+            data[i][0] = data[i+1][0];
+            data[i][1] = data[i+1][1];
+            data[i][2] = data[i+1][2];
+            data[i][3] = data[i+1][3];
+        }
+        data[99][0] = null;
+        data[99][1] = null;
+        data[99][2] = null;
+        data[99][3] = null;
     }
     
     private static void show(){
@@ -66,6 +73,7 @@ public class Main {
                 System.out.println((i+1)+" =>\t"+data[i][0]+"\t"+data[i][1]+"\t"+data[i][2]+"\t"+data[i][3]);
                 i++;
             }
+            System.out.println("Jumlah Data: "+i);
         }
     }
     
@@ -121,6 +129,13 @@ public class Main {
                     }
                     break;
                 case 3:
+                    if(data[0][0] == null){
+                        System.out.println("Data masih kosong!");
+                    } else {
+                        System.out.println("Masukan nomor urut data yang akan dihapus:");
+                        int u = s.nextInt();
+                        delete(u);
+                    }
                     break;
                 case 4:
                     show();
