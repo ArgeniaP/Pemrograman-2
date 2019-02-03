@@ -17,34 +17,47 @@ public class Main {
     static Scanner s = new Scanner(System.in);
     static String[][] data = new String[100][4];
     
-    private void input(String nama, String alamat, String telepon, String email){
+    private static void input(String nama, String alamat, String telepon, String email){
         d.setNama(nama);
         d.setAlamat(alamat);
         d.setTelepon(telepon);
         d.setEmail(email);
     }
     
-    private void insert(int ind1){
-        data[ind1-1][0] = d.getNama();
-        data[ind1-1][1] = d.getAlamat();
-        data[ind1-1][2] = d.getTelepon();
-        data[ind1-1][3] = d.getEmail();
+    private static void insert(){
+        int i = 0;
+        do{
+            if(data[i][0] == null){
+                data[i][0] = d.getNama();
+                data[i][1] = d.getAlamat();
+                data[i][2] = d.getTelepon();
+                data[i][3] = d.getEmail();
+            }
+            i++;
+        } while(data[i][0] != null);
     }
     
-    private void update(int ind1, int ind2, String update){
+    private static void update(int ind1, int ind2, String update){
         data[ind1-1][ind2-1] = update;
     }
     
-    private void delete(int ind1){
+    private static void delete(int ind1){
         data[ind1-1][0] = null;
         data[ind1-1][1] = null;
         data[ind1-1][2] = null;
         data[ind1-1][3] = null;
     }
     
-    private void show(){
-        for(int i = 0; i < 100; i++){
-            System.out.println((i+1)+" => "+data[i][0]+"\t"+data[i][1]+"\t"+data[i][2]+"\t"+data[i][3]);
+    private static void show(){
+        int i = 0;
+        if(data[i][0] == null){
+            System.out.println("Data masih kosong!");
+        } else {
+            System.out.println("Berikut data yang sudah terkumpul:");
+            while(data[i][0] != null){
+                System.out.println((i+1)+" =>\t"+data[i][0]+"\t"+data[i][1]+"\t"+data[i][2]+"\t"+data[i][3]);
+                i++;
+            }
         }
     }
     
@@ -59,12 +72,21 @@ public class Main {
         
             switch(opsi){
                 case 1:
+                    System.out.println("Silahkan masukan data:");
+                    System.out.println("Dengan Format Nama>Alamat>No. Telepon>Email");
+                    String masuk = s.next();
+                    String[] raw = masuk.split(">");
+                    input(raw[0], raw[1], raw[2], raw[3]);
+                    System.out.println("Sedang memproses...");
+                    insert();
+                    System.out.println("Selesai...");
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
                 case 4:
+                    show();
                     break;
                 case 0:
                     System.exit(0);
