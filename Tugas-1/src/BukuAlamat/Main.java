@@ -25,16 +25,24 @@ public class Main {
     }
     
     private static void insert(){
-        int i = 0;
-        do{
-            if(data[i][0] == null){
-                data[i][0] = d.getNama();
-                data[i][1] = d.getAlamat();
-                data[i][2] = d.getTelepon();
-                data[i][3] = d.getEmail();
+        if(data[0][0] == null){
+            data[0][0] = d.getNama();
+            data[0][1] = d.getAlamat();
+            data[0][2] = d.getTelepon();
+            data[0][3] = d.getEmail();
+        } else {
+            for(int i = 0; i < 100; i++){
+                if(data[i][0] != null){
+                    continue;
+                } else {
+                    data[i][0] = d.getNama();
+                    data[i][1] = d.getAlamat();
+                    data[i][2] = d.getTelepon();
+                    data[i][3] = d.getEmail();
+                    break;
+                }
             }
-            i++;
-        } while(data[i][0] != null);
+        }
     }
     
     private static void update(int ind1, int ind2, String update){
@@ -73,10 +81,15 @@ public class Main {
             switch(opsi){
                 case 1:
                     System.out.println("Silahkan masukan data:");
-                    System.out.println("Dengan Format Nama>Alamat>No. Telepon>Email");
-                    String masuk = s.next();
-                    String[] raw = masuk.split(">");
-                    input(raw[0], raw[1], raw[2], raw[3]);
+                    System.out.print("Nama:\t\t");
+                    String nama = s.next();
+                    System.out.print("Alamat:\t\t");
+                    String alamat = s.next();
+                    System.out.print("No.Telepon:\t");
+                    String telepon = s.next();
+                    System.out.print("E-mail:\t\t");
+                    String email = s.next();
+                    input(nama, alamat, telepon, email);
                     System.out.println("Sedang memproses...");
                     insert();
                     System.out.println("Selesai...");
