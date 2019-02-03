@@ -65,8 +65,8 @@ public class Main {
         do{
             System.out.println("Selamat Datang!");
             System.out.println("Silahkan pilih salah satu opsi berikut:");
-            System.out.println("1 => Insert Data\t3 => Update Data");
-            System.out.println("2 => Delete Data\t4 => Show Data");
+            System.out.println("1 => Insert Data\t3 => Delete Data");
+            System.out.println("2 => Update Data\t4 => Show Data");
             System.out.println("Untuk menghentikan program masukan 0.");
             int opsi = s.nextInt();
         
@@ -82,20 +82,30 @@ public class Main {
                     System.out.println("Selesai...");
                     break;
                 case 2:
-                    System.out.println("Silahkan masukan no. urut data yang akan dirubah");
-                    int j = s.nextInt();
-                    System.out.println("Data diambil...");
+                    if(data[0][0] != null){
+                        System.out.println("Sebaiknya menjalankan dulu Show data sebelum merubah, masih ingin melanjutkan?(y/n)");
+                        String y = s.next();
+                        if(y.equalsIgnoreCase("y")){
+                            System.out.println("Silahkan masukan no. urut data yang akan dirubah");
+                            int j = s.nextInt();
+                            System.out.println("Data diambil...");
                     
-                    System.out.println("Masukan data mana yang akan dirubah:");
-                    System.out.println("1. Nama\t2. Alamat\t3. No. Telepon\t4. Email");
-                    int k = s.nextInt();
-                    System.out.println("Data diambil...");
+                            System.out.println("Masukan data mana yang akan dirubah:");
+                            System.out.println("1. Nama\t2. Alamat\t3. No. Telepon\t4. Email");
+                            int k = s.nextInt();
+                            System.out.println("Data diambil...");
                     
-                    System.out.println("Masukan data yang baru:");
-                    String update = s.next();
-                    System.out.println("Memproses....");
-                    update(j, k, update);
-                    System.out.println("Selesai...");
+                            System.out.println("Masukan data yang baru:");
+                            String update = s.next();
+                            System.out.println("Memproses....");
+                            update(j, k, update);
+                            System.out.println("Selesai...");
+                        } else {
+                            break;
+                        }
+                    } else {
+                        System.out.println("Data Kosong! Tidak ada yang bisa dirubah!");
+                    }
                     break;
                 case 3:
                     break;
@@ -108,6 +118,7 @@ public class Main {
                 default:
                     System.out.println("Opsi tidak sesuai!");
             }
+            System.out.println();
         } while(true);
     }
 }
