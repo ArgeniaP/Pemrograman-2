@@ -11,8 +11,8 @@ package ac.id.stmikamik.base;
  */
 public abstract class Shape {
     
-    public abstract long getArea();
+    public abstract String getName();
     
-    public abstract long getName();
+    public abstract double getArea();
     
 }
