@@ -19,6 +19,10 @@ public class Circle extends Shape{
         this.name = name;
     }
 
+    public float getRadius() {
+        return radius;
+    }
+
     @Override
     public String getName() {
         return name;

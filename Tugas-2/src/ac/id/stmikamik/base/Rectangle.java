@@ -21,6 +21,14 @@ public class Rectangle extends Shape{
         this.width = width;
     }
 
+    public long getLength() {
+        return length;
+    }
+
+    public long getWidth() {
+        return width;
+    }
+
     @Override
     public String getName() {
         return name;
