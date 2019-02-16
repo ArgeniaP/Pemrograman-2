@@ -5,6 +5,8 @@
  */
 package lingkaran.koordinat;
 
+import java.util.Scanner;
+
 /**
  *
  * @author user
@@ -16,6 +18,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Lingkaran c1 = new Lingkaran();
+        Lingkaran c2 = new Lingkaran();
+        Scanner s = new Scanner(System.in);
     }
     
 }
