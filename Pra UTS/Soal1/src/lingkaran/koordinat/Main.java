@@ -39,9 +39,9 @@ public class Main {
         if(jarak >= (c1.getR()+c2.getR())){
             System.out.println("C1 dan C2 Saling Lepas");
         } else if(jarak < (c1.getR()+c2.getR())){
-            if((c1.getR() < c2.getR()) && (((c1.getX()+c1.getR()<c2.getX()+c2.getR())||(c1.getX()-c1.getR()>c2.getX()-c2.getR()) && (c1.getY()+c1.getR()<c2.getY()+c2.getR())||(c1.getY()-c1.getR()>c2.getY()-c2.getR())))){
+            if((c1.getR() < c2.getR()) && (((c1.getX()+c1.getR()<c2.getX()+c2.getR())&&(c1.getX()-c1.getR()>c2.getX()-c2.getR()) && (c1.getY()+c1.getR()<c2.getY()+c2.getR())&&(c1.getY()-c1.getR()>c2.getY()-c2.getR())))){
                 System.out.println("C1 ada di dalam C2");
-            } else if((c1.getR() > c2.getR()) && (((c1.getX()+c1.getR()>c2.getX()+c2.getR())||(c1.getX()-c1.getR()<c2.getX()-c2.getR()) && (c1.getY()+c1.getR()>c2.getY()+c2.getR())||(c1.getY()-c1.getR()<c2.getY()-c2.getR())))){
+            } else if((c1.getR() > c2.getR()) && (((c1.getX()+c1.getR()>c2.getX()+c2.getR())&&(c1.getX()-c1.getR()<c2.getX()-c2.getR()) && (c1.getY()+c1.getR()>c2.getY()+c2.getR())&&(c1.getY()-c1.getR()<c2.getY()-c2.getR())))){
                 System.out.println("C2 ada di dalam C1");
             } else {
                 System.out.println("C1 dan C2 saling beririsan");
