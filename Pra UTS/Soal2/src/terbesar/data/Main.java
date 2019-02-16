@@ -31,7 +31,7 @@ public class Main {
             data[j+1] = key;
         }
         
-        for(int i = 7; i > 5; i--){
+        for(int i = 7; i > 4; i--){
             System.out.print(data[i] + " ");
         }
     }
