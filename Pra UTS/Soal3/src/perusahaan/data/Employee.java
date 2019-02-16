@@ -14,7 +14,10 @@ public class Employee {
     private String address;
     private long salary;
 
-    public Employee() {
+    public Employee(String name, String address, long salary) {
+        this.name = name;
+        this.address = address;
+        this.salary = salary;
     }
 
     public String getName() {
