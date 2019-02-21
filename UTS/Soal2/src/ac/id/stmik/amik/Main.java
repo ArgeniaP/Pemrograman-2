@@ -26,7 +26,7 @@ public class Main {
             System.out.println("1 -> Kubus");
             System.out.println("2 -> Bola");
             System.out.println("3 -> Kerucut");
-            System.out.print("Pilihan anda? (1/2/3/0)");
+            System.out.print("Pilihan anda? (1/2/3/0): ");
             int m = s.nextInt();
             switch (m) {
                 case 1:
