@@ -47,7 +47,7 @@ public class Kerucut extends BangunRuang {
 
     @Override
     public double hitungVolume() {
-        double volume = (1 / 3) * Math.PI * Math.pow(getR(), 2) * getT();
+        double volume = (Math.PI * Math.pow(getR(), 2) * getT())/3;
         return volume;
     }
 

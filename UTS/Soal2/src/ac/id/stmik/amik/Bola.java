@@ -9,8 +9,8 @@ package ac.id.stmik.amik;
  *
  * @author ilham
  */
-public class Bola extends BangunRuang{
-    
+public class Bola extends BangunRuang {
+
     double r;
 
     public Bola(double r) {
@@ -36,8 +36,8 @@ public class Bola extends BangunRuang{
 
     @Override
     public double hitungVolume() {
-        double volume = (4/3) * Math.PI * Math.pow(getR(), 3);
+        double volume = (4 * Math.PI * Math.pow(getR(), 3)) / 3;
         return volume;
     }
-    
+
 }
