@@ -6,6 +6,7 @@
 package latihan;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,13 +17,12 @@ public class Latihan1 {
 
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        try {
-            FileOutputStream o = new FileOutputStream("latihan.dat");
-
+        try (FileOutputStream o = new FileOutputStream("latihan.dat");){
+            System.out.println("Masukan Data yang akan disimpan pada latihan.dat:");
             o.write(s.nextLine().getBytes());
-
             o.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
