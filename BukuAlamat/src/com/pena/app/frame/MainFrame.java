@@ -5,6 +5,11 @@
  */
 package com.pena.app.frame;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  *
  * @author ilham
@@ -40,17 +45,20 @@ public class MainFrame extends javax.swing.JFrame {
         del = new javax.swing.JButton();
         save = new javax.swing.JButton();
         show = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Buku Alamat");
+        setBackground(new java.awt.Color(0, 204, 204));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setForeground(new java.awt.Color(0, 153, 153));
+        setForeground(new java.awt.Color(255, 255, 255));
         setName("frame"); // NOI18N
         setResizable(false);
         setSize(new java.awt.Dimension(300, 400));
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
         layout.columnWidths = new int[] {0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0};
-        layout.rowHeights = new int[] {0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0};
+        layout.rowHeights = new int[] {0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0};
         getContentPane().setLayout(layout);
 
         pembuka.setFont(new java.awt.Font("DejaVu Serif", 1, 12)); // NOI18N
@@ -138,6 +146,11 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(mail, gridBagConstraints);
 
         del.setText("Hapus");
+        del.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 16;
@@ -145,6 +158,11 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(del, gridBagConstraints);
 
         save.setText("Simpan");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
@@ -154,14 +172,86 @@ public class MainFrame extends javax.swing.JFrame {
 
         show.setText("Tampilkan");
         show.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 16;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(show, gridBagConstraints);
 
+        list.setColumns(20);
+        list.setRows(5);
+        list.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        list.setEnabled(false);
+        list.setFocusable(false);
+        list.setKeymap(null);
+        list.setName("daftar"); // NOI18N
+        list.setRequestFocusEnabled(false);
+        list.setVerifyInputWhenFocusTarget(false);
+        jScrollPane1.setViewportView(list);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delActionPerformed
+        // TODO add your handling code here:
+        nameField.setText("");
+        addressFiield.setText("");
+        numberField.setText("");
+        mailField.setText("");
+        list.setText("");
+    }//GEN-LAST:event_delActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        // TODO add your handling code here:
+        try (FileOutputStream o = new FileOutputStream("addressbook.dat", true)) {
+
+            o.write((nameField.getText() + "\t|| ").getBytes());
+            o.write((addressFiield.getText() + "\t|| ").getBytes());
+            o.write((numberField.getText() + "\t|| ").getBytes());
+            o.write((mailField.getText() + "\n").getBytes());
+
+            o.close();
+            
+            delActionPerformed(evt);
+
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
+        // TODO add your handling code here:
+        try (FileInputStream i = new FileInputStream("addressbook.dat")) {
+            
+            int word;
+            String draf = "";
+            
+            while((word=i.read()) != -1){
+                draf += (char)word;
+            }
+            
+            i.close();
+            
+            list.setText(draf);
+
+        } catch (FileNotFoundException e) {
+            
+        } catch (IOException ex) {
+            
+        }
+    }//GEN-LAST:event_showActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,22 +269,16 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
         });
     }
 
@@ -202,6 +286,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel address;
     private javax.swing.JTextField addressFiield;
     private javax.swing.JButton del;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea list;
     private javax.swing.JLabel mail;
     private javax.swing.JTextField mailField;
     private javax.swing.JLabel name;
