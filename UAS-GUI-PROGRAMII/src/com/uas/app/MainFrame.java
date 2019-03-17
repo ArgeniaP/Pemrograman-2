@@ -8,13 +8,14 @@ package com.uas.app;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -113,35 +114,26 @@ public class MainFrame extends javax.swing.JFrame {
 
         tabelData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nama", "NPM", "Tugas", "UTS", "UAS", "Nilai AKhir"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelData.setMinimumSize(new java.awt.Dimension(400, 100));
-        tabelData.setPreferredSize(new java.awt.Dimension(450, 150));
+        tabelData.setFillsViewportHeight(true);
+        tabelData.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        tabelData.setName("TabelData"); // NOI18N
         tabelData.setRowHeight(20);
         tabelData.setRowMargin(2);
+        tabelData.setRowSelectionAllowed(false);
         tabelData.getTableHeader().setReorderingAllowed(false);
         scrollData.setViewportView(tabelData);
 
@@ -286,7 +278,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void bHitungPersenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHitungPersenActionPerformed
         // TODO add your handling code here:
         int persen = (int) persenTugas.getValue() + (int) persenUTS.getValue() + (int) persenUAS.getValue();
-        if (persen < 100) {
+        if (persen == 100) {
+
+        } else {
             JOptionPane.showMessageDialog(null, "Persentase Kurang dari 100%", "Perhatian", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bHitungPersenActionPerformed
@@ -303,8 +297,26 @@ public class MainFrame extends javax.swing.JFrame {
             int returnVal = fc.showOpenDialog(MainFrame.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                
+
                 namaFile.setText(file.getName());
+
+                try {
+                    FileReader reader = new FileReader(file);
+                    CSVReader csvr = new CSVReaderBuilder(reader).build();
+                    List<String[]> allData = csvr.readAll();
+                    DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+                    model.setRowCount(allData.size());
+                    String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
+                    for (String[] column : allData) {
+                        int i = allData.indexOf(column);
+                        for (int j = 0; j < tabelData.getColumnCount(); j++) {
+                            raw[i][j] = column[j];
+                            tabelData.setValueAt(raw[i][j], i, j);
+                        }
+                    } 
+                } catch (Exception ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_bBrowserActionPerformed
