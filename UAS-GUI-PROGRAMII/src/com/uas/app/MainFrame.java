@@ -9,7 +9,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,13 +48,13 @@ public class MainFrame extends javax.swing.JFrame {
         bStatistik = new javax.swing.JButton();
         lPersen = new javax.swing.JLabel();
         panelPersen = new javax.swing.JPanel();
-        persenTugas = new javax.swing.JSpinner();
-        persenUTS = new javax.swing.JSpinner();
-        persenUAS = new javax.swing.JSpinner();
         lPersenTugas = new javax.swing.JLabel();
         lPersenUTS = new javax.swing.JLabel();
         lPersenUAS = new javax.swing.JLabel();
         bHitungPersen = new javax.swing.JButton();
+        persenTugas = new javax.swing.JComboBox();
+        persenUTS = new javax.swing.JComboBox();
+        persenUAS = new javax.swing.JComboBox();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(90, 0), new java.awt.Dimension(90, 0), new java.awt.Dimension(90, 32767));
         menuApl = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
@@ -180,30 +179,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1Layout.rowHeights = new int[] {0, 14, 0, 14, 0};
         panelPersen.setLayout(jPanel1Layout);
 
-        persenTugas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-        persenTugas.setMinimumSize(new java.awt.Dimension(60, 30));
-        persenTugas.setPreferredSize(new java.awt.Dimension(60, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        panelPersen.add(persenTugas, gridBagConstraints);
-
-        persenUTS.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-        persenUTS.setMinimumSize(new java.awt.Dimension(60, 30));
-        persenUTS.setPreferredSize(new java.awt.Dimension(60, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        panelPersen.add(persenUTS, gridBagConstraints);
-
-        persenUAS.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-        persenUAS.setMinimumSize(new java.awt.Dimension(60, 30));
-        persenUAS.setPreferredSize(new java.awt.Dimension(60, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        panelPersen.add(persenUAS, gridBagConstraints);
-
         lPersenTugas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lPersenTugas.setText("Persentase Tugas");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -241,8 +216,36 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 8);
         panelPersen.add(bHitungPersen, gridBagConstraints);
+
+        persenTugas.setMaximumRowCount(21);
+        persenTugas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        persenTugas.setMinimumSize(new java.awt.Dimension(60, 30));
+        persenTugas.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        panelPersen.add(persenTugas, gridBagConstraints);
+
+        persenUTS.setMaximumRowCount(21);
+        persenUTS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        persenUTS.setMinimumSize(new java.awt.Dimension(60, 30));
+        persenUTS.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        panelPersen.add(persenUTS, gridBagConstraints);
+
+        persenUAS.setMaximumRowCount(21);
+        persenUAS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        persenUAS.setMinimumSize(new java.awt.Dimension(60, 30));
+        persenUAS.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        panelPersen.add(persenUAS, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -277,11 +280,28 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void bHitungPersenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHitungPersenActionPerformed
         // TODO add your handling code here:
-        int persen = (int) persenTugas.getValue() + (int) persenUTS.getValue() + (int) persenUAS.getValue();
+        int persen = Integer.parseInt(persenTugas.getSelectedItem().toString()) + Integer.parseInt(persenUTS.getSelectedItem().toString()) + Integer.parseInt(persenUAS.getSelectedItem().toString());
         if (persen == 100) {
-
+            for (int i = 0; i < tabelData.getRowCount(); i++) {
+                int nilai = ((Integer.parseInt(tabelData.getValueAt(i, 2).toString()) * Integer.parseInt(persenTugas.getSelectedItem().toString())) / 100)
+                        + ((Integer.parseInt(tabelData.getValueAt(i, 3).toString()) * Integer.parseInt(persenUTS.getSelectedItem().toString())) / 100)
+                        + ((Integer.parseInt(tabelData.getValueAt(i, 4).toString()) * Integer.parseInt(persenUAS.getSelectedItem().toString())) / 100);
+                if (nilai == 0) {
+                    tabelData.setValueAt("T", i, 5);
+                } else if (nilai < 50) {
+                    tabelData.setValueAt("E", i, 5);
+                } else if (50 <= nilai && nilai < 60) {
+                    tabelData.setValueAt("D", i, 5);
+                } else if (60 <= nilai && nilai < 70) {
+                    tabelData.setValueAt("C", i, 5);
+                } else if (70 <= nilai && nilai < 80) {
+                    tabelData.setValueAt("B", i, 5);
+                } else {
+                    tabelData.setValueAt("A", i, 5);
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Persentase Kurang dari 100%", "Perhatian", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Persentase Tidak Sama dengan 100%", "Perhatian", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bHitungPersenActionPerformed
 
@@ -305,15 +325,20 @@ public class MainFrame extends javax.swing.JFrame {
                     CSVReader csvr = new CSVReaderBuilder(reader).build();
                     List<String[]> allData = csvr.readAll();
                     DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+
                     model.setRowCount(allData.size());
                     String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
+
                     for (String[] column : allData) {
                         int i = allData.indexOf(column);
                         for (int j = 0; j < tabelData.getColumnCount(); j++) {
                             raw[i][j] = column[j];
                             tabelData.setValueAt(raw[i][j], i, j);
                         }
-                    } 
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Silahkan atur Persentase Nilai "
+                            + "untuk Mendapatkan Nilai Akhir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -373,9 +398,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuApl;
     private javax.swing.JTextField namaFile;
     private javax.swing.JPanel panelPersen;
-    private javax.swing.JSpinner persenTugas;
-    private javax.swing.JSpinner persenUAS;
-    private javax.swing.JSpinner persenUTS;
+    private javax.swing.JComboBox persenTugas;
+    private javax.swing.JComboBox persenUAS;
+    private javax.swing.JComboBox persenUTS;
     private javax.swing.JScrollPane scrollData;
     private javax.swing.JTable tabelData;
     // End of variables declaration//GEN-END:variables
