@@ -332,8 +332,18 @@ public class MainFrame extends javax.swing.JFrame {
                     for (String[] column : allData) {
                         int i = allData.indexOf(column);
                         for (int j = 0; j < tabelData.getColumnCount(); j++) {
-                            raw[i][j] = column[j];
-                            tabelData.setValueAt(raw[i][j], i, j);
+                            if (j != (tabelData.getColumnCount() - 1)) {
+                                if ("".equals(column[j])) {
+                                    column[j] = "0";
+                                    raw[i][j] = column[j];
+                                    tabelData.setValueAt(raw[i][j], i, j);
+                                } else {
+                                    raw[i][j] = column[j];
+                                    tabelData.setValueAt(raw[i][j], i, j);
+                                }
+                            } else{
+                                tabelData.setValueAt("", i, j);
+                            }
                         }
                     }
 
