@@ -7,13 +7,18 @@ package com.uas.app;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -148,6 +153,11 @@ public class MainFrame extends javax.swing.JFrame {
         bEkspor.setMaximumSize(bBrowser.getMaximumSize());
         bEkspor.setMinimumSize(bBrowser.getMinimumSize());
         bEkspor.setPreferredSize(bBrowser.getPreferredSize());
+        bEkspor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEksporActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 6;
@@ -314,21 +324,23 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         final JFileChooser fc = new JFileChooser();
         if (evt.getSource() == bBrowser) {
+            fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
             int returnVal = fc.showOpenDialog(MainFrame.this);
+            
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-
-                namaFile.setText(file.getName());
-
+                File open = fc.getSelectedFile();
+                
+                namaFile.setText(open.getName());
+                
                 try {
-                    FileReader reader = new FileReader(file);
+                    FileReader reader = new FileReader(open);
                     CSVReader csvr = new CSVReaderBuilder(reader).build();
                     List<String[]> allData = csvr.readAll();
                     DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
-
+                    
                     model.setRowCount(allData.size());
                     String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
-
+                    
                     for (String[] column : allData) {
                         int i = allData.indexOf(column);
                         for (int j = 0; j < tabelData.getColumnCount(); j++) {
@@ -341,12 +353,12 @@ public class MainFrame extends javax.swing.JFrame {
                                     raw[i][j] = column[j];
                                     tabelData.setValueAt(raw[i][j], i, j);
                                 }
-                            } else{
+                            } else {
                                 tabelData.setValueAt("", i, j);
                             }
                         }
                     }
-
+                    
                     JOptionPane.showMessageDialog(null, "Silahkan atur Persentase Nilai "
                             + "untuk Mendapatkan Nilai Akhir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
@@ -355,6 +367,43 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bBrowserActionPerformed
+
+    private void bEksporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEksporActionPerformed
+        // TODO add your handling code here:
+        final JFileChooser fc = new JFileChooser();
+        if (evt.getSource() == bEkspor) {
+            fc.setCurrentDirectory(new File("."));
+            fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+            int rSave = fc.showSaveDialog(MainFrame.this);
+            
+            if (rSave == JFileChooser.APPROVE_OPTION) {
+                File save = fc.getSelectedFile();
+                
+                try {
+                    CSVWriter csvw = new CSVWriter(new FileWriter(save));
+                    List<String[]> dataSave = new ArrayList<>();
+                    
+                    String[] dataHeader = {tabelData.getColumnName(0), tabelData.getColumnName(1),
+                        tabelData.getColumnName(2), tabelData.getColumnName(3),
+                        tabelData.getColumnName(4), tabelData.getColumnName(5)};
+                    dataSave.add(dataHeader);
+                    for (int i = 0; i < tabelData.getRowCount(); i++) {
+                        String[] dataNilai = {tabelData.getValueAt(i, 0).toString(),
+                            tabelData.getValueAt(i, 1).toString(),
+                            tabelData.getValueAt(i, 2).toString(),
+                            tabelData.getValueAt(i, 3).toString(),
+                            tabelData.getValueAt(i, 4).toString(),
+                            tabelData.getValueAt(i, 5).toString()};
+                        dataSave.add(dataNilai);
+                    }
+                    csvw.writeAll(dataSave);
+                    csvw.close();
+                } catch (Exception e) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+    }//GEN-LAST:event_bEksporActionPerformed
 
     /**
      * @param args the command line arguments
