@@ -1,4 +1,5 @@
-*Nama: Ilham Taufik  Hidayat*
-*NPM: 1842807*
-*S1 - Teknik Informatika*
-\nFolder di atas adalah folder project yang dibuat
+***Nama: Ilham Taufik  Hidayat***
+</br>***NPM: 1842807***
+</br>***S1 - Teknik Informatika***
+</br>
+</br>*Nama Folder* di atas adalah *Nama Project* yang dibuat
