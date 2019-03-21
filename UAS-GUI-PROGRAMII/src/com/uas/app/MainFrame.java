@@ -17,8 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.SwingWrapper;
 
 /**
  *
@@ -171,11 +174,6 @@ public class MainFrame extends javax.swing.JFrame {
         bStatistik.setMaximumSize(bBrowser.getMaximumSize());
         bStatistik.setMinimumSize(new java.awt.Dimension(80, 25));
         bStatistik.setPreferredSize(bBrowser.getPreferredSize());
-        bStatistik.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bStatistikActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 6;
@@ -451,10 +449,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_mExitActionPerformed
-    private void bStatistikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStatistikActionPerformed
-        // TODO add your handling code here:
-        new StatistikForm().setVisible(true);
-    }//GEN-LAST:event_bStatistikActionPerformed
 
     /**
      * @param args the command line arguments
