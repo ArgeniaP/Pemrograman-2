@@ -8,7 +8,6 @@ package com.uas.app;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
-import com.opencsv.CSVWriterBuilder;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -168,6 +167,11 @@ public class MainFrame extends javax.swing.JFrame {
         bStatistik.setMaximumSize(bBrowser.getMaximumSize());
         bStatistik.setMinimumSize(new java.awt.Dimension(80, 25));
         bStatistik.setPreferredSize(bBrowser.getPreferredSize());
+        bStatistik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bStatistikActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 6;
@@ -293,9 +297,7 @@ public class MainFrame extends javax.swing.JFrame {
         int persen = Integer.parseInt(persenTugas.getSelectedItem().toString()) + Integer.parseInt(persenUTS.getSelectedItem().toString()) + Integer.parseInt(persenUAS.getSelectedItem().toString());
         if (persen == 100) {
             for (int i = 0; i < tabelData.getRowCount(); i++) {
-                int nilai = ((Integer.parseInt(tabelData.getValueAt(i, 2).toString()) * Integer.parseInt(persenTugas.getSelectedItem().toString())) / 100)
-                        + ((Integer.parseInt(tabelData.getValueAt(i, 3).toString()) * Integer.parseInt(persenUTS.getSelectedItem().toString())) / 100)
-                        + ((Integer.parseInt(tabelData.getValueAt(i, 4).toString()) * Integer.parseInt(persenUAS.getSelectedItem().toString())) / 100);
+                int nilai = nilaiAkhir(i);
                 if (nilai == 0) {
                     tabelData.setValueAt("T", i, 5);
                 } else if (nilai < 50) {
@@ -326,21 +328,21 @@ public class MainFrame extends javax.swing.JFrame {
         if (evt.getSource() == bBrowser) {
             fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
             int returnVal = fc.showOpenDialog(MainFrame.this);
-            
+
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File open = fc.getSelectedFile();
-                
+
                 namaFile.setText(open.getName());
-                
+
                 try {
                     FileReader reader = new FileReader(open);
                     CSVReader csvr = new CSVReaderBuilder(reader).build();
                     List<String[]> allData = csvr.readAll();
                     DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
-                    
+
                     model.setRowCount(allData.size());
                     String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
-                    
+
                     for (String[] column : allData) {
                         int i = allData.indexOf(column);
                         for (int j = 0; j < tabelData.getColumnCount(); j++) {
@@ -358,7 +360,7 @@ public class MainFrame extends javax.swing.JFrame {
                             }
                         }
                     }
-                    
+
                     JOptionPane.showMessageDialog(null, "Silahkan atur Persentase Nilai "
                             + "untuk Mendapatkan Nilai Akhir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
@@ -375,14 +377,14 @@ public class MainFrame extends javax.swing.JFrame {
             fc.setCurrentDirectory(new File("."));
             fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
             int rSave = fc.showSaveDialog(MainFrame.this);
-            
+
             if (rSave == JFileChooser.APPROVE_OPTION) {
                 File save = fc.getSelectedFile();
-                
+
                 try {
                     CSVWriter csvw = new CSVWriter(new FileWriter(save));
                     List<String[]> dataSave = new ArrayList<>();
-                    
+
                     String[] dataHeader = {tabelData.getColumnName(0), tabelData.getColumnName(1),
                         tabelData.getColumnName(2), tabelData.getColumnName(3),
                         tabelData.getColumnName(4), tabelData.getColumnName(5)};
@@ -404,6 +406,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bEksporActionPerformed
+
+    private void bStatistikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStatistikActionPerformed
+        // TODO add your handling code here:
+        new StatistikForm().setVisible(true);
+    }//GEN-LAST:event_bStatistikActionPerformed
 
     /**
      * @param args the command line arguments
@@ -463,4 +470,32 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollData;
     private javax.swing.JTable tabelData;
     // End of variables declaration//GEN-END:variables
+
+    private int nilaiAkhir(int i) {
+        int nilai = ((Integer.parseInt(tabelData.getValueAt(i, 2).toString()) * Integer.parseInt(persenTugas.getSelectedItem().toString())) / 100)
+                + ((Integer.parseInt(tabelData.getValueAt(i, 3).toString()) * Integer.parseInt(persenUTS.getSelectedItem().toString())) / 100)
+                + ((Integer.parseInt(tabelData.getValueAt(i, 4).toString()) * Integer.parseInt(persenUAS.getSelectedItem().toString())) / 100);
+        return nilai;
+    }
+
+    public Integer[] dataNilaiUas() {
+        Integer[] dataNilai = {0, 0, 0, 0, 0, 0};
+        for (int i = 0; i < tabelData.getRowCount(); i++) {
+            int pilah = Integer.parseInt(tabelData.getValueAt(i, 4).toString());
+            if (pilah < 50) {
+                dataNilai[0] = dataNilai[0] + 1;
+            } else if (pilah >= 50 && pilah <= 60) {
+                dataNilai[1] = dataNilai[1] + 1;
+            } else if (pilah > 60 && pilah <= 70) {
+                dataNilai[2] = dataNilai[2] + 1;
+            } else if (pilah > 70 && pilah <= 80) {
+                dataNilai[3] = dataNilai[3] + 1;
+            } else if (pilah > 80 && pilah <= 90) {
+                dataNilai[4] = dataNilai[4] + 1;
+            } else {
+                dataNilai[5] = dataNilai[5] + 1;
+            }
+        }
+        return dataNilai;
+    }
 }
