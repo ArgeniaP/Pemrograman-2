@@ -62,6 +62,10 @@ public class MainFrame extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(90, 0), new java.awt.Dimension(90, 0), new java.awt.Dimension(90, 32767));
         menuApl = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
+        mBrowse = new javax.swing.JMenuItem();
+        mExport = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mExit = new javax.swing.JMenuItem();
         about = new javax.swing.JMenu();
         apl = new javax.swing.JMenuItem();
 
@@ -272,6 +276,34 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(filler1, gridBagConstraints);
 
         file.setText("Berkas");
+
+        mBrowse.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        mBrowse.setText("Pilih Berkas....");
+        mBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mBrowseActionPerformed(evt);
+            }
+        });
+        file.add(mBrowse);
+
+        mExport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mExport.setText("Simpan Sebagai...");
+        mExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mExportActionPerformed(evt);
+            }
+        });
+        file.add(mExport);
+        file.add(jSeparator1);
+
+        mExit.setText("Keluar");
+        mExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mExitActionPerformed(evt);
+            }
+        });
+        file.add(mExit);
+
         menuApl.add(file);
 
         about.setText("Tentang");
@@ -325,47 +357,46 @@ public class MainFrame extends javax.swing.JFrame {
     private void bBrowserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBrowserActionPerformed
         // TODO add your handling code here:
         final JFileChooser fc = new JFileChooser();
-        if (evt.getSource() == bBrowser) {
-            fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
-            int returnVal = fc.showOpenDialog(MainFrame.this);
 
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File open = fc.getSelectedFile();
+        fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+        int returnVal = fc.showOpenDialog(MainFrame.this);
 
-                namaFile.setText(open.getName());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File open = fc.getSelectedFile();
 
-                try {
-                    FileReader reader = new FileReader(open);
-                    CSVReader csvr = new CSVReaderBuilder(reader).build();
-                    List<String[]> allData = csvr.readAll();
-                    DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+            namaFile.setText(open.getName());
 
-                    model.setRowCount(allData.size());
-                    String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
+            try {
+                FileReader reader = new FileReader(open);
+                CSVReader csvr = new CSVReaderBuilder(reader).build();
+                List<String[]> allData = csvr.readAll();
+                DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
 
-                    for (String[] column : allData) {
-                        int i = allData.indexOf(column);
-                        for (int j = 0; j < tabelData.getColumnCount(); j++) {
-                            if (j != (tabelData.getColumnCount() - 1)) {
-                                if ("".equals(column[j])) {
-                                    column[j] = "0";
-                                    raw[i][j] = column[j];
-                                    tabelData.setValueAt(raw[i][j], i, j);
-                                } else {
-                                    raw[i][j] = column[j];
-                                    tabelData.setValueAt(raw[i][j], i, j);
-                                }
+                model.setRowCount(allData.size());
+                String[][] raw = new String[allData.size()][tabelData.getColumnCount()];
+
+                for (String[] column : allData) {
+                    int i = allData.indexOf(column);
+                    for (int j = 0; j < tabelData.getColumnCount(); j++) {
+                        if (j != (tabelData.getColumnCount() - 1)) {
+                            if ("".equals(column[j])) {
+                                column[j] = "0";
+                                raw[i][j] = column[j];
+                                tabelData.setValueAt(raw[i][j], i, j);
                             } else {
-                                tabelData.setValueAt("", i, j);
+                                raw[i][j] = column[j];
+                                tabelData.setValueAt(raw[i][j], i, j);
                             }
+                        } else {
+                            tabelData.setValueAt("", i, j);
                         }
                     }
-
-                    JOptionPane.showMessageDialog(null, "Silahkan atur Persentase Nilai "
-                            + "untuk Mendapatkan Nilai Akhir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                JOptionPane.showMessageDialog(null, "Silahkan atur Persentase Nilai "
+                        + "untuk Mendapatkan Nilai Akhir", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_bBrowserActionPerformed
@@ -373,40 +404,53 @@ public class MainFrame extends javax.swing.JFrame {
     private void bEksporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEksporActionPerformed
         // TODO add your handling code here:
         final JFileChooser fc = new JFileChooser();
-        if (evt.getSource() == bEkspor) {
-            fc.setCurrentDirectory(new File("."));
-            fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
-            int rSave = fc.showSaveDialog(MainFrame.this);
 
-            if (rSave == JFileChooser.APPROVE_OPTION) {
-                File save = fc.getSelectedFile();
+        fc.setCurrentDirectory(new File("."));
+        fc.setFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+        int rSave = fc.showSaveDialog(MainFrame.this);
 
-                try {
-                    CSVWriter csvw = new CSVWriter(new FileWriter(save));
-                    List<String[]> dataSave = new ArrayList<>();
+        if (rSave == JFileChooser.APPROVE_OPTION) {
+            File save = fc.getSelectedFile();
 
-                    String[] dataHeader = {tabelData.getColumnName(0), tabelData.getColumnName(1),
-                        tabelData.getColumnName(2), tabelData.getColumnName(3),
-                        tabelData.getColumnName(4), tabelData.getColumnName(5)};
-                    dataSave.add(dataHeader);
-                    for (int i = 0; i < tabelData.getRowCount(); i++) {
-                        String[] dataNilai = {tabelData.getValueAt(i, 0).toString(),
-                            tabelData.getValueAt(i, 1).toString(),
-                            tabelData.getValueAt(i, 2).toString(),
-                            tabelData.getValueAt(i, 3).toString(),
-                            tabelData.getValueAt(i, 4).toString(),
-                            tabelData.getValueAt(i, 5).toString()};
-                        dataSave.add(dataNilai);
-                    }
-                    csvw.writeAll(dataSave);
-                    csvw.close();
-                } catch (Exception e) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, e);
+            try {
+                CSVWriter csvw = new CSVWriter(new FileWriter(save));
+                List<String[]> dataSave = new ArrayList<>();
+
+                String[] dataHeader = {tabelData.getColumnName(0), tabelData.getColumnName(1),
+                    tabelData.getColumnName(2), tabelData.getColumnName(3),
+                    tabelData.getColumnName(4), tabelData.getColumnName(5)};
+                dataSave.add(dataHeader);
+                for (int i = 0; i < tabelData.getRowCount(); i++) {
+                    String[] dataNilai = {tabelData.getValueAt(i, 0).toString(),
+                        tabelData.getValueAt(i, 1).toString(),
+                        tabelData.getValueAt(i, 2).toString(),
+                        tabelData.getValueAt(i, 3).toString(),
+                        tabelData.getValueAt(i, 4).toString(),
+                        tabelData.getValueAt(i, 5).toString()};
+                    dataSave.add(dataNilai);
                 }
+                csvw.writeAll(dataSave);
+                csvw.close();
+            } catch (Exception e) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }//GEN-LAST:event_bEksporActionPerformed
 
+    private void mBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mBrowseActionPerformed
+        // TODO add your handling code here:
+        bBrowserActionPerformed(evt);
+    }//GEN-LAST:event_mBrowseActionPerformed
+
+    private void mExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExportActionPerformed
+        // TODO add your handling code here:
+        bEksporActionPerformed(evt);
+    }//GEN-LAST:event_mExportActionPerformed
+
+    private void mExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_mExitActionPerformed
     private void bStatistikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStatistikActionPerformed
         // TODO add your handling code here:
         new StatistikForm().setVisible(true);
@@ -456,11 +500,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton bStatistik;
     private javax.swing.JMenu file;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lApl;
     private javax.swing.JLabel lPersen;
     private javax.swing.JLabel lPersenTugas;
     private javax.swing.JLabel lPersenUAS;
     private javax.swing.JLabel lPersenUTS;
+    private javax.swing.JMenuItem mBrowse;
+    private javax.swing.JMenuItem mExit;
+    private javax.swing.JMenuItem mExport;
     private javax.swing.JMenuBar menuApl;
     private javax.swing.JTextField namaFile;
     private javax.swing.JPanel panelPersen;
