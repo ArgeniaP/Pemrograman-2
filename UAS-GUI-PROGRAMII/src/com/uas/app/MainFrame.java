@@ -17,11 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XChartPanel;
 
 /**
  *
@@ -35,6 +33,8 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
     }
+    
+    ChartPengolah cp = new ChartPengolah();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,6 +174,11 @@ public class MainFrame extends javax.swing.JFrame {
         bStatistik.setMaximumSize(bBrowser.getMaximumSize());
         bStatistik.setMinimumSize(new java.awt.Dimension(80, 25));
         bStatistik.setPreferredSize(bBrowser.getPreferredSize());
+        bStatistik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bStatistikActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 6;
@@ -450,6 +455,11 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_mExitActionPerformed
 
+    private void bStatistikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStatistikActionPerformed
+        // TODO add your handling code here:
+        new StatFrame().setVisible(true);
+    }//GEN-LAST:event_bStatistikActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -513,7 +523,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable tabelData;
     // End of variables declaration//GEN-END:variables
 
-    private int nilaiAkhir(int i) {
+    public int nilaiAkhir(int i) {
         int nilai = ((Integer.parseInt(tabelData.getValueAt(i, 2).toString()) * Integer.parseInt(persenTugas.getSelectedItem().toString())) / 100)
                 + ((Integer.parseInt(tabelData.getValueAt(i, 3).toString()) * Integer.parseInt(persenUTS.getSelectedItem().toString())) / 100)
                 + ((Integer.parseInt(tabelData.getValueAt(i, 4).toString()) * Integer.parseInt(persenUAS.getSelectedItem().toString())) / 100);
@@ -521,23 +531,60 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     public Integer[] dataNilaiUas() {
-        Integer[] dataNilai = {0, 0, 0, 0, 0, 0};
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+        int e = 0;
+        int f = 0;
+
         for (int i = 0; i < tabelData.getRowCount(); i++) {
             int pilah = Integer.parseInt(tabelData.getValueAt(i, 4).toString());
             if (pilah < 50) {
-                dataNilai[0] = dataNilai[0] + 1;
+                a = a++;
             } else if (pilah >= 50 && pilah <= 60) {
-                dataNilai[1] = dataNilai[1] + 1;
+                b = b++;
             } else if (pilah > 60 && pilah <= 70) {
-                dataNilai[2] = dataNilai[2] + 1;
+                c = c++;
             } else if (pilah > 70 && pilah <= 80) {
-                dataNilai[3] = dataNilai[3] + 1;
+                d = d++;
             } else if (pilah > 80 && pilah <= 90) {
-                dataNilai[4] = dataNilai[4] + 1;
+                e = e++;
             } else {
-                dataNilai[5] = dataNilai[5] + 1;
+                f = f++;
             }
         }
+
+        Integer[] dataNilai = {a, b, c, d, e, f};
+        return dataNilai;
+    }
+
+    public Integer[] dataNilaiAkhir() {
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+        int e = 0;
+        int t = 0;
+
+        for (int i = 0; i < tabelData.getRowCount(); i++) {
+            String pilah = tabelData.getValueAt(i, 5).toString();
+            if ("A".equalsIgnoreCase(pilah)) {
+                a++;
+            } else if ("B".equalsIgnoreCase(pilah)) {
+                b++;
+            } else if ("C".equalsIgnoreCase(pilah)) {
+                c++;
+            } else if ("D".equalsIgnoreCase(pilah)) {
+                d++;
+            } else if ("E".equalsIgnoreCase(pilah)) {
+                e++;
+            } else {
+                t++;
+            }
+        }
+
+        Integer[] dataNilai = {a, b, c, d, e, t};
         return dataNilai;
     }
 }
